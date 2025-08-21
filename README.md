@@ -1,53 +1,5 @@
 # GemenXFreemium_V3
 Token Gaming 
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-/**
- * @title GemenXFreemium_V3
-  * @dev ERC20 token avec blacklist, burn, mint contrôlé par owner, protection reentrancy, et récupération d'ERC20.
-   * OpenZeppelin v4.9.3 imports (via GitHub) pour compilation dans Remix.
-    */
-
-    import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.3/contracts/token/ERC20/ERC20.sol";
-    import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.3/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-    import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.3/contracts/access/Ownable.sol";
-    import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.3/contracts/security/ReentrancyGuard.sol";
-    import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.3/contracts/token/ERC20/utils/SafeERC20.sol";
-    import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.3/contracts/token/ERC20/IERC20.sol";
-
-    contract GemenXFreemium_V3 is ERC20, ERC20Burnable, Ownable, ReentrancyGuard {
-        using SafeERC20 for IERC20;
-
-            // Events
-                event Mint(address indexed to, uint256 amount);
-                    event Burned(address indexed from, uint256 amount);
-                        event Blacklisted(address indexed account);
-                            event UnBlacklisted(address indexed account);
-                                event RescueERC20(address indexed token, address indexed to, uint256 amount);
-
-                                    // Distribution addresses (corrigées avec '=')
-                                        address public constant TAP_TO_EARN        = 0x4A0f00fC8608Eb30962532F6500C4aF6160bDaDc;
-                                            address public constant LIQUIDITY_EXCHANGES = 0x44474050ecDf2Dc3dE0dE9a343d205e87BfCbADb;
-                                                address public constant TEAM_VESTING_BENEF = 0x9920c63E3b93A1322ACf2c8DdbE66A9607F5F501;
-                                                    address public constant GAMING             = 0xD7d2A6DAe8Cd531Fc8eED9F7E7B5B72cbfBb7eFD;
-                                                        address public constant SPONSORS           = 0x39B1DECa70f9b0e47AeF1D1154091771b27f9dF0;
-                                                            address public constant RESERVE_WALLET     = 0xe25872B301dA6dac19b3539DA821Ae9d97469d9a;
-
-                                                                // Supply (500,000,000 tokens, 18 decimals)
-                                                                    uint256 public constant INITIAL_SUPPLY = 500_000_000 * 10 ** 18;
-
-                                                                        // Blacklist mapping
-                                                                            mapping(address => bool) private _blacklisted;
-
-                                                                                // Burn rate in basis points (default 0 = no automatic burn). If you want an automatic burn, set e.g. 100 = 1%
-                                                                                    uint256 public burnBps = 0;
-                                                                                        uint256 public constant BPS_DENOM = 10_000;
-
-                                                                                            constructor() ERC20("GemenXFreemium_V3", "GXF3") {
-                                                                                                    // Distribution initiale (somme totale = INITIAL_SUPPLY)
-                                                                                                            // 25% Tap-to-Earn, 20% Liquidity, 15% Team, 25% Gaming, 5% Sponsors, 10% Reserve (comme dans ton snippet)
-
 _mint(TAP_TO_EARN,        (INITIAL_SUPPLY * 25) / 100);
                                                                                                                             _mint(LIQUIDITY_EXCHANGES,(INITIAL_SUPPLY * 20) / 100);
                                                                                                                                     _mint(TEAM_VESTING_BENEF, (INITIAL_SUPPLY * 15) / 100);
@@ -174,3 +126,51 @@ require(!_blacklisted[_msgSender()], "GXF3: owner blacklisted");
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             emit RescueERC20(token, to, amount);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+/**
+ * @title GemenXFreemium_V3
+  * @dev ERC20 token avec blacklist, burn, mint contrôlé par owner, protection reentrancy, et récupération d'ERC20.
+   * OpenZeppelin v4.9.3 imports (via GitHub) pour compilation dans Remix.
+    */
+
+    import "https://OpenZeppelin/openzeppelin-contracts/blob/v4.9.3/contracts/token/ERC20/ERC20.sol";
+    import "https://OpenZeppelin/openzeppelin-contracts/blob/v4.9.3/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+    import "https://OpenZeppelin/openzeppelin-contracts/blob/v4.9.3/contracts/access/Ownable.sol";
+    import "https://OpenZeppelin/openzeppelin-contracts/blob/v4.9.3/contracts/security/ReentrancyGuard.sol";
+    import "https://OpenZeppelin/openzeppelin-contracts/blob/v4.9.3/contracts/token/ERC20/utils/SafeERC20.sol";
+    import "https://OpenZeppelin/openzeppelin-contracts/blob/v4.9.3/contracts/token/ERC20/IERC20.sol";
+
+    contract GemenXFreemium_V3 is ERC20, ERC20Burnable, Ownable, ReentrancyGuard {
+        using SafeERC20 for IERC20;
+
+            // Events
+                event Mint(address indexed to, uint256 amount);
+                    event Burned(address indexed from, uint256 amount);
+                        event Blacklisted(address indexed account);
+                            event UnBlacklisted(address indexed account);
+                                event RescueERC20(address indexed token, address indexed to, uint256 amount);
+
+                                    // Distribution addresses (corrigées avec '=')
+                                        address public constant TAP_TO_EARN        = 0x4A0f00fC8608Eb30962532F6500C4aF6160bDaDc;
+                                            address public constant LIQUIDITY_EXCHANGES = 0x44474050ecDf2Dc3dE0dE9a343d205e87BfCbADb;
+                                                address public constant TEAM_VESTING_BENEF = 0x9920c63E3b93A1322ACf2c8DdbE66A9607F5F501;
+                                                    address public constant GAMING             = 0xD7d2A6DAe8Cd531Fc8eED9F7E7B5B72cbfBb7eFD;
+                                                        address public constant SPONSORS           = 0x39B1DECa70f9b0e47AeF1D1154091771b27f9dF0;
+                                                            address public constant RESERVE_WALLET     = 0xe25872B301dA6dac19b3539DA821Ae9d97469d9a;
+
+                                                                // Supply (500,000,000 tokens, 18 decimals)
+                                                                    uint256 public constant INITIAL_SUPPLY = 500_000_000 * 10 ** 18;
+
+                                                                        // Blacklist mapping
+                                                                            mapping(address => bool) private _blacklisted;
+
+                                                                                // Burn rate in basis points (default 0 = no automatic burn). If you want an automatic burn, set e.g. 100 = 1%
+                                                                                    uint256 public burnBps = 0;
+                                                                                        uint256 public constant BPS_DENOM = 10_000;
+
+                                                                                            constructor() ERC20("GemenXFreemium_V3", "GXF3") {
+                                                                                                    // Distribution initiale (somme totale = INITIAL_SUPPLY)
+                                                                                                            // 25% Tap-to-Earn, 20% Liquidity, 15% Team, 25% Gaming, 5% Sponsors, 10% Reserve (comme dans ton snippet)                                                                                                                                                                                                                                                            
