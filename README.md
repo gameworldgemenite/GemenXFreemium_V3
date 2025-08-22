@@ -86,7 +86,7 @@ contract GemenXFreemium_V3 is ERC20, ERC20Burnable, Ownable, ReentrancyGuard {
         burnBps = newBps;
     }
 
-    // ---------------------------
+// ---------------------------
     // Mint (owner only)
     // ---------------------------
     function mint(address to, uint256 amount) external onlyOwner nonReentrant {
