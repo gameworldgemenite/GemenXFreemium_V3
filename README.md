@@ -1,4 +1,4 @@
-# GemenXFreemium_V3.sol
+# GemenXFreemium_V3
 Token Gaming 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
